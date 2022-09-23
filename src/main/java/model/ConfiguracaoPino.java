@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -121,4 +122,18 @@ public class ConfiguracaoPino extends Model {
         return this;
     }
 
+    static public ArrayList<Integer> getIds() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(ConfiguracaoPino.ID_PINO_1);
+        ids.add(ConfiguracaoPino.ID_PINO_2);
+        ids.add(ConfiguracaoPino.ID_PINO_3);
+        ids.add(ConfiguracaoPino.ID_PINO_4);
+        ids.add(ConfiguracaoPino.ID_PINO_5);
+        ids.add(ConfiguracaoPino.ID_PINO_6);
+        ids.add(ConfiguracaoPino.ID_PINO_7);
+        ids.add(ConfiguracaoPino.ID_PINO_8);
+        ids.add(ConfiguracaoPino.ID_PINO_9);
+        return ids;
+    }
+    
 }

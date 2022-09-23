@@ -16,6 +16,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     public ViewFormConfiguracaoCamera() {
         super();
         initComponents();
+        initLocaComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -82,40 +83,45 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
 
         jLabel1.setText("Câmera:");
 
-        comboBoxCamera.setModel(new javax.swing.DefaultComboBoxModel<>(new Integer[] { 1, 2, 3, 4 }));
-
+        labelImagemCamera.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelImagemCamera.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setText("Percentual de match da câmera:");
 
         jLabel4.setText("Margem de erro da localização da câmera:");
 
+        labelPino1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel2.setText("PM:");
 
         jLabel5.setText("ME:");
 
+        labelPino2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel6.setText("PM:");
 
         jLabel7.setText("ME:");
 
+        labelPino3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel8.setText("PM:");
 
         jLabel9.setText("ME:");
 
+        labelPino4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        labelPino5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel10.setText("PM:");
 
         jLabel11.setText("ME:");
 
+        labelPino6.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel12.setText("PM:");
@@ -126,14 +132,17 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
 
         jLabel15.setText("ME:");
 
+        labelPino7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        labelPino8.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel16.setText("PM:");
 
         jLabel17.setText("ME:");
 
+        labelPino9.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         labelPino9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel18.setText("PM:");
@@ -403,6 +412,12 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         return new ConfiguracaoCamera();
     }
 
+    private void initLocaComponents() {
+        ConfiguracaoCamera.getIds().forEach((id) -> {
+            this.getComboBoxCamera().addItem(id);
+        });
+    }
+    
     public JComboBox<Integer> getComboBoxCamera() {
         return comboBoxCamera;
     }

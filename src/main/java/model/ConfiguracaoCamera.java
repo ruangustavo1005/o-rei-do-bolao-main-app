@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -77,6 +78,16 @@ public class ConfiguracaoCamera extends Model {
         return this.getPinos().stream()
                 .filter((pino) -> pino.getNumero() == numero)
                 .findAny().get();
+    }
+    
+    
+    static public ArrayList<Integer> getIds() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(ConfiguracaoCamera.ID_CAMERA_1);
+        ids.add(ConfiguracaoCamera.ID_CAMERA_2);
+        ids.add(ConfiguracaoCamera.ID_CAMERA_3);
+        ids.add(ConfiguracaoCamera.ID_CAMERA_4);
+        return ids;
     }
     
 }

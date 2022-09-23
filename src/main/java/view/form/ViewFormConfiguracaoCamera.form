@@ -314,17 +314,13 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboBoxCamera">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new Integer[] { 1, 2, 3, 4 })" type="code"/>
-        </Property>
-      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="labelImagemCamera">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -350,6 +346,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino1">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -373,6 +370,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino2">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -396,6 +394,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino3">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -419,6 +418,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino4">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -430,6 +430,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino5">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -451,6 +452,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino6">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -488,6 +490,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino7">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -499,6 +502,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino8">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
@@ -520,6 +524,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelPino9">
       <Properties>
+        <Property name="verticalAlignment" type="int" value="1"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
