@@ -20,8 +20,20 @@ public class Configuracao extends Model {
 
     @Id
     private int id;
+    
     @Column(name = "tipo_experiencia")
     private int tipoExperiencia;
+    
+    @Column(name = "percentual_match")
+    private float percentualMatch;
+    
+    @Column(name = "margem_erro_localizacao")
+    private int margemErroLocalizacao;
+
+    public Configuracao() {
+        this.id = Configuracao.ID;
+    }
+    
     @Override
     public int getId() {
         if (this.id == 0) {
@@ -29,13 +41,32 @@ public class Configuracao extends Model {
         }
         return id;
     }
-    
+
     public int getTipoExperiencia() {
         return tipoExperiencia;
     }
 
-    public void setTipoExperiencia(int tipoExperiencia) {
+    public Configuracao setTipoExperiencia(int tipoExperiencia) {
         this.tipoExperiencia = tipoExperiencia;
+        return this;
+    }
+
+    public float getPercentualMatch() {
+        return percentualMatch;
+    }
+
+    public Configuracao setPercentualMatch(float percentualMatch) {
+        this.percentualMatch = percentualMatch;
+        return this;
+    }
+
+    public int getMargemErroLocalizacao() {
+        return margemErroLocalizacao;
+    }
+
+    public Configuracao setMargemErroLocalizacao(int margemErroLocalizacao) {
+        this.margemErroLocalizacao = margemErroLocalizacao;
+        return this;
     }
     
     static public ArrayList<ListaItem> getListaTipoExperiencia() {

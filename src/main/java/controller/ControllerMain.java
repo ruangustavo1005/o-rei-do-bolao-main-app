@@ -1,7 +1,8 @@
 package controller;
 
-import controller.form.ControllerFormConfiguracoes;
+import controller.form.ControllerFormConfiguracao;
 import dao.Dao;
+import model.Configuracao;
 import model.Model;
 import view.ViewMain;
 
@@ -13,6 +14,19 @@ public class ControllerMain extends Controller<Model, ViewMain, Dao> {
 
     public ControllerMain() {
         super(null);
+        this.verificaConfiguracaoGeral();
+    }
+    
+    private void verificaConfiguracaoGeral() {
+        Dao<Configuracao> daoConfiguracao = new Dao<>(Configuracao.class);
+        if (daoConfiguracao.get(1) == null) {
+            Configuracao configuracao = new Configuracao()
+                    .setTipoExperiencia(Configuracao.TIPO_EXPERIENCIA_PRIMEIRA_BOLA)
+                    .setPercentualMatch(90)
+                    .setMargemErroLocalizacao(30);
+            
+            daoConfiguracao.add(configuracao);
+        }
     }
     
     @Override
@@ -32,7 +46,7 @@ public class ControllerMain extends Controller<Model, ViewMain, Dao> {
     
     private void addActionListenersMenuItemConfiguracoes() {
         this.getView().getMenuItemConfiguracoes().addActionListener((e) -> {
-            (new ControllerFormConfiguracoes(this)).showView();
+            (new ControllerFormConfiguracao(this)).showView();
         });
     }
 
