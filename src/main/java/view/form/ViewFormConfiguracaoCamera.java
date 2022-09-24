@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import model.ConfiguracaoCamera;
 import model.ConfiguracaoPino;
+import util.ImagePanel;
 
 /**
  *
@@ -16,7 +17,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     public ViewFormConfiguracaoCamera() {
         super();
         initComponents();
-        initLocaComponents();
+        initLocalComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,7 +26,6 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
 
         jLabel1 = new javax.swing.JLabel();
         comboBoxCamera = new javax.swing.JComboBox<>();
-        labelImagemCamera = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textPercentualMatchCamera = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -78,13 +78,11 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         jLabel21 = new javax.swing.JLabel();
         botaoGravarConfiguracoesCamera = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        panelImagemCamera = new ImagePanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Câmera:");
-
-        labelImagemCamera.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        labelImagemCamera.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel3.setText("Percentual de match da câmera:");
 
@@ -157,6 +155,19 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
 
         jLabel22.setText("<html>\n* Clique nas imagens dos pinos para editá-las;<br/>\n* PM: Percentual de match (do pino);<br/>\n* ME: Margem de erro (do pino).\n</html>");
 
+        panelImagemCamera.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout panelImagemCameraLayout = new javax.swing.GroupLayout(panelImagemCamera);
+        panelImagemCamera.setLayout(panelImagemCameraLayout);
+        panelImagemCameraLayout.setHorizontalGroup(
+            panelImagemCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        panelImagemCameraLayout.setVerticalGroup(
+            panelImagemCameraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -165,7 +176,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelImagemCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelImagemCamera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -268,7 +279,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textMargemErroLocalizacaoPino3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 6, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,7 +312,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -382,10 +393,11 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                                     .addComponent(textPercentualMatchPino8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textMargemErroLocalizacaoPino8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel20))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelImagemCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelImagemCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -412,7 +424,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         return new ConfiguracaoCamera();
     }
 
-    private void initLocaComponents() {
+    private void initLocalComponents() {
         ConfiguracaoCamera.getIds().forEach((id) -> {
             this.getComboBoxCamera().addItem(id);
         });
@@ -434,51 +446,51 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         return botaoGravarConfiguracoesCamera;
     }
 
-    public JLabel getLabelImagemCamera() {
-        return labelImagemCamera;
+    public ImagePanel getPanelImagemCamera() {
+        return panelImagemCamera;
     }
 
     public JLabel getLabelImagemPino(int pino) {
         switch (pino) {
-            case ConfiguracaoPino.ID_PINO_1: return this.labelPino1;
-            case ConfiguracaoPino.ID_PINO_2: return this.labelPino2;
-            case ConfiguracaoPino.ID_PINO_3: return this.labelPino3;
-            case ConfiguracaoPino.ID_PINO_4: return this.labelPino4;
-            case ConfiguracaoPino.ID_PINO_5: return this.labelPino5;
-            case ConfiguracaoPino.ID_PINO_6: return this.labelPino6;
-            case ConfiguracaoPino.ID_PINO_7: return this.labelPino7;
-            case ConfiguracaoPino.ID_PINO_8: return this.labelPino8;
-            case ConfiguracaoPino.ID_PINO_9: return this.labelPino9;
+            case ConfiguracaoPino.NUMERO_PINO_1: return this.labelPino1;
+            case ConfiguracaoPino.NUMERO_PINO_2: return this.labelPino2;
+            case ConfiguracaoPino.NUMERO_PINO_3: return this.labelPino3;
+            case ConfiguracaoPino.NUMERO_PINO_4: return this.labelPino4;
+            case ConfiguracaoPino.NUMERO_PINO_5: return this.labelPino5;
+            case ConfiguracaoPino.NUMERO_PINO_6: return this.labelPino6;
+            case ConfiguracaoPino.NUMERO_PINO_7: return this.labelPino7;
+            case ConfiguracaoPino.NUMERO_PINO_8: return this.labelPino8;
+            case ConfiguracaoPino.NUMERO_PINO_9: return this.labelPino9;
             default: return null;
         }
     }
 
     public JTextField getTextPercentualMatchPino(int pino) {
         switch (pino) {
-            case ConfiguracaoPino.ID_PINO_1: return this.textPercentualMatchPino1;
-            case ConfiguracaoPino.ID_PINO_2: return this.textPercentualMatchPino2;
-            case ConfiguracaoPino.ID_PINO_3: return this.textPercentualMatchPino3;
-            case ConfiguracaoPino.ID_PINO_4: return this.textPercentualMatchPino4;
-            case ConfiguracaoPino.ID_PINO_5: return this.textPercentualMatchPino5;
-            case ConfiguracaoPino.ID_PINO_6: return this.textPercentualMatchPino6;
-            case ConfiguracaoPino.ID_PINO_7: return this.textPercentualMatchPino7;
-            case ConfiguracaoPino.ID_PINO_8: return this.textPercentualMatchPino8;
-            case ConfiguracaoPino.ID_PINO_9: return this.textPercentualMatchPino9;
+            case ConfiguracaoPino.NUMERO_PINO_1: return this.textPercentualMatchPino1;
+            case ConfiguracaoPino.NUMERO_PINO_2: return this.textPercentualMatchPino2;
+            case ConfiguracaoPino.NUMERO_PINO_3: return this.textPercentualMatchPino3;
+            case ConfiguracaoPino.NUMERO_PINO_4: return this.textPercentualMatchPino4;
+            case ConfiguracaoPino.NUMERO_PINO_5: return this.textPercentualMatchPino5;
+            case ConfiguracaoPino.NUMERO_PINO_6: return this.textPercentualMatchPino6;
+            case ConfiguracaoPino.NUMERO_PINO_7: return this.textPercentualMatchPino7;
+            case ConfiguracaoPino.NUMERO_PINO_8: return this.textPercentualMatchPino8;
+            case ConfiguracaoPino.NUMERO_PINO_9: return this.textPercentualMatchPino9;
             default: return null;
         }
     }
     
     public JTextField getTextMargemErroLocalizacaoPino(int pino) {
         switch (pino) {
-            case ConfiguracaoPino.ID_PINO_1: return this.textMargemErroLocalizacaoPino1;
-            case ConfiguracaoPino.ID_PINO_2: return this.textMargemErroLocalizacaoPino2;
-            case ConfiguracaoPino.ID_PINO_3: return this.textMargemErroLocalizacaoPino3;
-            case ConfiguracaoPino.ID_PINO_4: return this.textMargemErroLocalizacaoPino4;
-            case ConfiguracaoPino.ID_PINO_5: return this.textMargemErroLocalizacaoPino5;
-            case ConfiguracaoPino.ID_PINO_6: return this.textMargemErroLocalizacaoPino6;
-            case ConfiguracaoPino.ID_PINO_7: return this.textMargemErroLocalizacaoPino7;
-            case ConfiguracaoPino.ID_PINO_8: return this.textMargemErroLocalizacaoPino8;
-            case ConfiguracaoPino.ID_PINO_9: return this.textMargemErroLocalizacaoPino9;
+            case ConfiguracaoPino.NUMERO_PINO_1: return this.textMargemErroLocalizacaoPino1;
+            case ConfiguracaoPino.NUMERO_PINO_2: return this.textMargemErroLocalizacaoPino2;
+            case ConfiguracaoPino.NUMERO_PINO_3: return this.textMargemErroLocalizacaoPino3;
+            case ConfiguracaoPino.NUMERO_PINO_4: return this.textMargemErroLocalizacaoPino4;
+            case ConfiguracaoPino.NUMERO_PINO_5: return this.textMargemErroLocalizacaoPino5;
+            case ConfiguracaoPino.NUMERO_PINO_6: return this.textMargemErroLocalizacaoPino6;
+            case ConfiguracaoPino.NUMERO_PINO_7: return this.textMargemErroLocalizacaoPino7;
+            case ConfiguracaoPino.NUMERO_PINO_8: return this.textMargemErroLocalizacaoPino8;
+            case ConfiguracaoPino.NUMERO_PINO_9: return this.textMargemErroLocalizacaoPino9;
             default: return null;
         }
     }
@@ -509,7 +521,6 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelImagemCamera;
     private javax.swing.JLabel labelPino1;
     private javax.swing.JLabel labelPino2;
     private javax.swing.JLabel labelPino3;
@@ -519,6 +530,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     private javax.swing.JLabel labelPino7;
     private javax.swing.JLabel labelPino8;
     private javax.swing.JLabel labelPino9;
+    private ImagePanel panelImagemCamera;
     private javax.swing.JTextField textMargemErroLocalizacaoCamera;
     private javax.swing.JTextField textMargemErroLocalizacaoPino1;
     private javax.swing.JTextField textMargemErroLocalizacaoPino2;

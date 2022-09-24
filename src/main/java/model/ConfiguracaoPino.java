@@ -19,17 +19,16 @@ import javax.persistence.Table;
 @Table(name = "configuracao_pino")
 public class ConfiguracaoPino extends Model {
 
-    static public final int ID_PINO_1 = 1;
-    static public final int ID_PINO_2 = 2;
-    static public final int ID_PINO_3 = 3;
-    static public final int ID_PINO_4 = 4;
-    static public final int ID_PINO_5 = 5;
-    static public final int ID_PINO_6 = 6;
-    static public final int ID_PINO_7 = 7;
-    static public final int ID_PINO_8 = 8;
-    static public final int ID_PINO_9 = 9;
+    static public final int NUMERO_PINO_1 = 1;
+    static public final int NUMERO_PINO_2 = 2;
+    static public final int NUMERO_PINO_3 = 3;
+    static public final int NUMERO_PINO_4 = 4;
+    static public final int NUMERO_PINO_5 = 5;
+    static public final int NUMERO_PINO_6 = 6;
+    static public final int NUMERO_PINO_7 = 7;
+    static public final int NUMERO_PINO_8 = 8;
+    static public final int NUMERO_PINO_9 = 9;
 
-    
     @Id
     private int numero;
     
@@ -122,17 +121,17 @@ public class ConfiguracaoPino extends Model {
         return this;
     }
 
-    static public ArrayList<Integer> getIds() {
+    static public ArrayList<Integer> getNumeros() {
         ArrayList<Integer> ids = new ArrayList<>();
-        ids.add(ConfiguracaoPino.ID_PINO_1);
-        ids.add(ConfiguracaoPino.ID_PINO_2);
-        ids.add(ConfiguracaoPino.ID_PINO_3);
-        ids.add(ConfiguracaoPino.ID_PINO_4);
-        ids.add(ConfiguracaoPino.ID_PINO_5);
-        ids.add(ConfiguracaoPino.ID_PINO_6);
-        ids.add(ConfiguracaoPino.ID_PINO_7);
-        ids.add(ConfiguracaoPino.ID_PINO_8);
-        ids.add(ConfiguracaoPino.ID_PINO_9);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_1);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_2);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_3);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_4);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_5);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_6);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_7);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_8);
+        ids.add(ConfiguracaoPino.NUMERO_PINO_9);
         return ids;
     }
     
