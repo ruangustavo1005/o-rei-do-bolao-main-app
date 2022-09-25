@@ -56,7 +56,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_MENOR_QUE : 
             case OperadorFiltro.OPERADOR_MENOR_IGUAL : {
                 query = this.entityManager.createQuery(
-                    "from %s tabela where tabela.%s %s :param1".formatted(this.classe.getName(), campo, operador)
+                    String.format("from %s tabela where tabela.%s %s :param1", this.classe.getName(), campo, operador)
                 );
 
                 this.addParamQuery(query, campoFiltro, "param1", valor);
@@ -67,7 +67,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_CONTEM : 
             case OperadorFiltro.OPERADOR_NAO_CONTEM : {
                 query = this.entityManager.createQuery(
-                    "from %s tabela where lower(tabela.%s) %s :param1".formatted(this.classe.getName(), campo, operador)
+                    String.format("from %s tabela where lower(tabela.%s) %s :param1", this.classe.getName(), campo, operador)
                 );
                 
                 this.addParamQuery(query, campoFiltro, "param1", "%" + valor.toLowerCase() + "%");
@@ -78,7 +78,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_ENTRE : 
             case OperadorFiltro.OPERADOR_NAO_ENTRE : {
                 query = this.entityManager.createQuery(
-                    "from %s tabela where tabela.%s %s :param1 and :param2".formatted(this.classe.getName(), campo, operador)
+                    String.format("from %s tabela where tabela.%s %s :param1 and :param2", this.classe.getName(), campo, operador)
                 );
                 
                 this.addParamQuery(query, campoFiltro, "param1", valor);
