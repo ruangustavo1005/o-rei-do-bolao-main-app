@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -17,6 +19,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.event.EventListenerList;
 
 /**
  * 
@@ -28,13 +31,20 @@ public class ImagePanel extends JPanel {
     private Shape shape = null;
     private Point startDrag, endDrag;
     private JLabel selectedArea;
+    private EventListenerList afterMousePressedListner = new EventListenerList();
     
     public ImagePanel() {
+        ImagePanel self = this;
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent event) {
                 if (isEditMode()) {
                     endDrag = startDrag = new Point(event.getX(), event.getY());
+                    for (Object actionListener : afterMousePressedListner.getListenerList()) {
+                        if (actionListener instanceof ActionListener) {
+                            ((ActionListener) actionListener).actionPerformed(new ActionEvent(self, 0, null));
+                        }
+                    }
                     repaint();
                 }
             }
@@ -47,11 +57,13 @@ public class ImagePanel extends JPanel {
                             shape = makeRectangle(startDrag.x, startDrag.y, event.getX(), event.getY());
                             
                             if (event.getX() - startDrag.x != 0 && event.getY() - startDrag.y != 0) {
-                                int x = Math.min((int) startDrag.getX(), event.getX());
-                                int y = Math.min((int) startDrag.getY(), event.getY());
-                                int w = Math.abs((int) startDrag.getX() - event.getX());
-                                int h = Math.abs((int) startDrag.getY() - event.getY());
-                                updateSelectedRegion(image.getSubimage(x, y, w, h));
+                                if (event.getX() <= image.getWidth() && event.getY() < image.getHeight()) {
+                                    int x = Math.min((int) startDrag.getX(), event.getX());
+                                    int y = Math.min((int) startDrag.getY(), event.getY());
+                                    int w = Math.abs((int) startDrag.getX() - event.getX());
+                                    int h = Math.abs((int) startDrag.getY() - event.getY());
+                                    updateSelectedRegion(image.getSubimage(x, y, w, h));
+                                }
                             }
                             
                             startDrag = null;
@@ -104,8 +116,7 @@ public class ImagePanel extends JPanel {
     }
 
     private Rectangle2D.Float makeRectangle(int x1, int y1, int x2, int y2) {
-        return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2),
-                Math.abs(x1 - x2), Math.abs(y1 - y2));
+        return new Rectangle2D.Float(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x1 - x2), Math.abs(y1 - y2));
     }
 
     public void updateSelectedRegion(BufferedImage bufferedImage) {
@@ -127,6 +138,18 @@ public class ImagePanel extends JPanel {
         this.image = image;
     }
 
+    public Point getStartDrag() {
+        return startDrag;
+    }
+
+    public JLabel getSelectedArea() {
+        return selectedArea;
+    }
+
+    public void addAfterMousePressedListner(ActionListener actionListener) {
+        this.afterMousePressedListner.add(ActionListener.class, actionListener);
+    }
+    
     private boolean isEditMode() {
         return this.selectedArea != null;
     }

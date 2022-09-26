@@ -17,8 +17,8 @@ import util.OperadorFiltro;
 public class Dao<Type extends Model> {
     
     protected final EntityManager entityManager;
-
-    private final Class<Type> classe;
+    protected final Class<Type> classe;
+    protected boolean transactions = true;
 
     public Dao(Class<Type> classe) {
         this.classe        = classe;
@@ -175,20 +175,35 @@ public class Dao<Type extends Model> {
         return object;
     }
     
-    protected final void begin() {
-        this.entityManager.getTransaction().begin();
+    public final void begin() {
+        if (this.transactions) {
+            this.entityManager.getTransaction().begin();
+        }
     }
 
-    protected final void commit() {
-        if (this.entityManager.getTransaction().isActive()) {
+    public final void commit() {
+        if (this.transactions && this.isTransactionActive()) {
             this.entityManager.getTransaction().commit();
         }
     }
 
-    protected final void rollback() {
-        if (this.entityManager.getTransaction().isActive()) {
+    public final void rollback() {
+        if (this.transactions && this.isTransactionActive()) {
             this.entityManager.getTransaction().rollback();
         }
+    }
+    
+    public final boolean isTransactionActive() {
+        return this.entityManager.getTransaction().isActive();
+    }
+    
+    public void disableTransactions() {
+        this.transactions = false;
+    }
+    
+    
+    public void enableTransactions() {
+        this.transactions = true;
     }
     
 }
