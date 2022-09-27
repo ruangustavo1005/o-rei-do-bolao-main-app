@@ -119,7 +119,7 @@ public class ViewFormConfiguracao extends ViewForm<Configuracao> {
     public void beanDados() {
         ListaUtils.povoaComboBox(this.getComboBoxTipoExperiencia(), Configuracao.getListaTipoExperiencia(), this.getModel().getTipoExperiencia());
         this.getTextPercentualMatch().setText(NumberUtils.formataValor(this.getModel().getPercentualMatch()));
-        this.getTextMargemErroLocalizacao().setText(String.valueOf(this.getModel().getMargemErroLocalizacao()));
+        this.getTextMargemErroLocalizacao().setText(NumberUtils.formataValor(this.getModel().getMargemErroLocalizacao()));
     }
 
     public JComboBox<ListaItem> getComboBoxTipoExperiencia() {

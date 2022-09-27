@@ -18,6 +18,11 @@ public class NumberUtils {
         return (float) (replace.equals("") ? 0.0 : Float.parseFloat(replace));
     }
     
+    public static String formataValor(int valor) {
+        return valor > 0 ? String.valueOf(valor) : "";
+    }
+    
+    
     public static String formataValor(float valor) {
         return formataValor(valor, 2);
     }
@@ -31,6 +36,7 @@ public class NumberUtils {
     }
     
     public static String formataValor(float valor, int decimais, boolean withPontos, int lpad) {
+        if (valor == 0.0) return "";
         String retorno = String.valueOf(((int) (valor * (Math.pow(10, decimais)))) / (Math.pow(10, decimais))).replace(".", ",");
         if (withPontos) {
             String parteInteira = retorno.substring(0, retorno.indexOf(","));

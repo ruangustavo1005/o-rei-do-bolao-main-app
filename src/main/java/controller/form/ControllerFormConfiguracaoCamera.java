@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -137,17 +136,18 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
         });
     }
     
-    
     private void addActionListenerBotaoGravarConfiguracoesPinos() {
         this.getView().getBotaoGravarConfiguracoesPinos().addActionListener((e) -> {
             try {
-                this.daoConfiguracaoPino.disableTransactions();
-                this.daoConfiguracaoPino.begin();
+                Dao.disableTransactions();
+                this.daoConfiguracaoPino.getEntityManager().getTransaction().begin();
 
                 boolean sucesso = true;
                 int selectedCameraNumero = this.getSelectedCameraNumero();
 
                 for (int numero : ConfiguracaoPino.getNumeros()) {
+                    this.validaExistenciaConfiguracaoCamera(selectedCameraNumero);
+                    
                     ImageIcon icon = (ImageIcon) this.getView().getLabelImagemPino(numero).getIcon();
                     if (icon != null) {
                         BufferedImage image = (BufferedImage) icon.getImage();
@@ -194,24 +194,40 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
                 }
 
                 if (sucesso) {
-                    this.daoConfiguracaoPino.commit();
+                    this.daoConfiguracaoPino.getEntityManager().getTransaction().commit();
                     this.getView().showTypedMessage("Sucesso", "Configuração alterada com sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     this.getView().showTypedMessage("Erro", "Houve um erro ao tentar alterar a configuração. Contate o suporte", JOptionPane.ERROR_MESSAGE);
-                    this.daoConfiguracaoPino.rollback();
+                    if (this.daoConfiguracaoPino.isTransactionActive()) {
+                        this.daoConfiguracaoPino.getEntityManager().getTransaction().rollback();
+                    }
                 }
             }
             catch (Exception ex) {
                 this.getView().showTypedMessage("Erro", "Houve um erro não esperado. Contate o suporte", JOptionPane.ERROR_MESSAGE);
                 if (this.daoConfiguracaoPino.isTransactionActive()) {
-                    this.daoConfiguracaoPino.rollback();
+                    this.daoConfiguracaoPino.getEntityManager().getTransaction().rollback();
                 }
             }
             finally {
-                this.daoConfiguracaoPino.enableTransactions();
+                Dao.enableTransactions();
             }
         });
+    }
+    
+    private void validaExistenciaConfiguracaoCamera(int numeroCamera) {
+        if (this.getDao().get(numeroCamera) == null) {
+            float percentualMatchCamera = NumberUtils.parseFloat(this.getView().getTextPercentualMatchCamera().getText());
+            int margemErroLocalizacao = NumberUtils.parseInt(this.getView().getTextMargemErroLocalizacaoCamera().getText());
+            
+            ConfiguracaoCamera configuracaoCamera = new ConfiguracaoCamera()
+                    .setNumero(numeroCamera)
+                    .setMargemErroLocalizacao(margemErroLocalizacao)
+                    .setPercentualMatch(percentualMatchCamera);
+            
+            this.getDao().add(configuracaoCamera);
+        }
     }
     
     private void onChangeComboBoxCamera() {
@@ -237,8 +253,8 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     private void reloadImagemCamera(int numeroCamera) {
         try {
             // @todo ler da câmera
-//            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha.png")), MAX_DIMENSAO_IMAGEM_CAMERA);
-            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("C:/Users/ruang/Downloads/cancha.JPG")), MAX_DIMENSAO_IMAGEM_CAMERA);
+            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha.png")), MAX_DIMENSAO_IMAGEM_CAMERA);
+//            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("C:/Users/ruang/Downloads/cancha.JPG")), MAX_DIMENSAO_IMAGEM_CAMERA);
             this.getView().getPanelImagemCamera().setImage(image);
             this.getView().repaint();
         }
@@ -248,22 +264,37 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     }
 
     private void reloadConfiguracaoCamera(ConfiguracaoCamera configuracaoCamera) {
-        this.getView().getTextMargemErroLocalizacaoCamera().setText(String.valueOf(configuracaoCamera.getMargemErroLocalizacao()));
+        this.getView().getTextMargemErroLocalizacaoCamera().setText(NumberUtils.formataValor(configuracaoCamera.getMargemErroLocalizacao()));
         this.getView().getTextPercentualMatchCamera().setText(NumberUtils.formataValor(configuracaoCamera.getPercentualMatch()));
     }
 
     private void reloadConfiguracoesPinos(ConfiguracaoCamera configuracaoCamera) {
-        
+        this.resetConfiguracoesPinos();
+        this.daoConfiguracaoPino.getByCamera(configuracaoCamera.getNumero()).forEach((ConfiguracaoPino configuracaoPino) -> {
+            try {
+                int numero = configuracaoPino.getNumero();
+                this.getView().getTextMargemErroLocalizacaoPino(numero).setText(NumberUtils.formataValor(configuracaoPino.getMargemErroLocalizacao()));
+                this.getView().getTextPercentualMatchPino(numero).setText(NumberUtils.formataValor(configuracaoPino.getPercentualMatch()));
+                this.getView().getLabelImagemPino(numero).setIcon(new ImageIcon(ImageUtils.getBufferedImageFromBytes(configuracaoPino.getImagem())));
+            }
+            catch (IOException ex) {
+                Logger.getLogger(ControllerFormConfiguracaoCamera.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
     private void resetConfiguracaoCamera() {
-        
         this.getView().getTextMargemErroLocalizacaoCamera().setText("");
         this.getView().getTextPercentualMatchCamera().setText("");
     }
 
     private void resetConfiguracoesPinos() {
-        
+        ConfiguracaoPino.getNumeros().forEach((Integer numero) -> {
+            this.getView().getTextMargemErroLocalizacaoPino(numero).setText("");
+            this.getView().getTextPercentualMatchPino(numero).setText("");
+            this.getView().getLabelImagemPino(numero).setIcon(null);
+        });
+        this.getView().repaint();
     }
 
     private int getSelectedCameraNumero() {

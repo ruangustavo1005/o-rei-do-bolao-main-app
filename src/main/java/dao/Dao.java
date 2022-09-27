@@ -18,7 +18,8 @@ public class Dao<Type extends Model> {
     
     protected final EntityManager entityManager;
     protected final Class<Type> classe;
-    protected boolean transactions = true;
+    
+    static protected boolean transactions = true;
 
     public Dao(Class<Type> classe) {
         this.classe        = classe;
@@ -175,20 +176,20 @@ public class Dao<Type extends Model> {
         return object;
     }
     
-    public final void begin() {
-        if (this.transactions) {
+    protected final void begin() {
+        if (Dao.transactions) {
             this.entityManager.getTransaction().begin();
         }
     }
 
-    public final void commit() {
-        if (this.transactions && this.isTransactionActive()) {
+    protected final void commit() {
+        if (Dao.transactions && this.isTransactionActive()) {
             this.entityManager.getTransaction().commit();
         }
     }
 
-    public final void rollback() {
-        if (this.transactions && this.isTransactionActive()) {
+    protected final void rollback() {
+        if (Dao.transactions && this.isTransactionActive()) {
             this.entityManager.getTransaction().rollback();
         }
     }
@@ -196,14 +197,17 @@ public class Dao<Type extends Model> {
     public final boolean isTransactionActive() {
         return this.entityManager.getTransaction().isActive();
     }
-    
-    public void disableTransactions() {
-        this.transactions = false;
+
+    public EntityManager getEntityManager() {
+        return entityManager;
     }
     
+    static public void disableTransactions() {
+        Dao.transactions = false;
+    }
     
-    public void enableTransactions() {
-        this.transactions = true;
+    static public void enableTransactions() {
+        Dao.transactions = true;
     }
     
 }
