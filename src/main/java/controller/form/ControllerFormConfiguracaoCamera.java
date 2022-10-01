@@ -258,21 +258,22 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     private void reloadImagemCamera(int numeroCamera) {
         try {
             // @todo ler da câmera
-            BufferedImage image = null;
+            String fileName;
             switch (numeroCamera) {
                 case 1: {
-                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha-1.jpg")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                    fileName = "cancha-1.jpg";
                     break;
                 }
                 case 2: {
-                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha-2.jpg")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                    fileName = "cancha-2.jpg";
                     break;
                 }
                 default :{
-                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha.png")), MAX_DIMENSAO_IMAGEM_CAMERA);
-//                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("C:/Users/ruang/Downloads/cancha.JPG")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                    fileName = System.getProperty("os.name").equals("Windows 10") ? "cancha.JPG" : "cancha.png";
                 }
             }
+            fileName = (System.getProperty("os.name").equals("Windows 10") ? "C:/Users/ruang/Downloads/" : "/home/ruan/Documentos/tcc/") + fileName;
+            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File(fileName)), MAX_DIMENSAO_IMAGEM_CAMERA);
             this.getView().getPanelImagemCamera().setImage(image);
             this.getView().repaint();
         }
