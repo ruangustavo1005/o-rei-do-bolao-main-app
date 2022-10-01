@@ -73,7 +73,7 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
         this.addActionListenerBotaoGravarConfiguracoesCamera();
         this.addActionListenerBotaoGravarConfiguracoesPinos();
         this.addActionListenersLabelsPinos();
-        this.getView().getPanelImagemCamera().addAfterMousePressedListner((e) -> {
+        this.getView().getPanelImagemCamera().addAfterMouseReleasedListner((e) -> {
             Integer pinoAtual = null;
             for (Integer numero : ConfiguracaoPino.getNumeros()) {
                 if (this.getView().getLabelImagemPino(numero).equals(((ImagePanel) e.getSource()).getSelectedArea())) {
@@ -83,7 +83,12 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
             }
             
             Point startPoint = ((ImagePanel) e.getSource()).getStartDrag();
-            this.localizacoesPinos.put(pinoAtual, startPoint);
+            Point endPoint   = ((ImagePanel) e.getSource()).getEndDrag();
+            Point maxPoint   = new Point(
+                (int) Math.min(startPoint.getX(), endPoint.getX()),
+                (int) Math.min(startPoint.getY(), endPoint.getY())
+            );
+            this.localizacoesPinos.put(pinoAtual, maxPoint);
         });
     }
     
@@ -253,8 +258,21 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     private void reloadImagemCamera(int numeroCamera) {
         try {
             // @todo ler da câmera
-            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha.png")), MAX_DIMENSAO_IMAGEM_CAMERA);
-//            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("C:/Users/ruang/Downloads/cancha.JPG")), MAX_DIMENSAO_IMAGEM_CAMERA);
+            BufferedImage image = null;
+            switch (numeroCamera) {
+                case 1: {
+                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha-1.jpg")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                    break;
+                }
+                case 2: {
+                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha-2.jpg")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                    break;
+                }
+                default :{
+                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("/home/ruan/Documentos/tcc/cancha.png")), MAX_DIMENSAO_IMAGEM_CAMERA);
+//                    image = ImageUtils.resizeKeepProportion(ImageIO.read(new File("C:/Users/ruang/Downloads/cancha.JPG")), MAX_DIMENSAO_IMAGEM_CAMERA);
+                }
+            }
             this.getView().getPanelImagemCamera().setImage(image);
             this.getView().repaint();
         }

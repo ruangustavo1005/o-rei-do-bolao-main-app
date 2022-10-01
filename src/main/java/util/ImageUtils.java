@@ -31,10 +31,10 @@ public class ImageUtils {
         int maxOriginalDimension = Math.max(originalWidth, originalHeight);
         
         if (maxOriginalDimension > maxDimension) {
-            int mdc                = NumberUtils.mdc(originalWidth, originalHeight);
-            int fatorMultiplicacao = ((int) maxDimension / (maxOriginalDimension / mdc));
-            int targetWidth        = originalWidth  / mdc * fatorMultiplicacao;
-            int targetHeight       = originalHeight / mdc * fatorMultiplicacao;
+            float mdc                = NumberUtils.mdc(originalWidth, originalHeight);
+            float fatorMultiplicacao = ((float) maxDimension) / (((float) maxOriginalDimension) / mdc);
+            int   targetWidth        = (int) (originalWidth  / mdc * fatorMultiplicacao);
+            int   targetHeight       = (int) (originalHeight / mdc * fatorMultiplicacao);
 
             BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
             Graphics2D graphics2D = resizedImage.createGraphics();

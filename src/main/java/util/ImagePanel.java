@@ -31,7 +31,7 @@ public class ImagePanel extends JPanel {
     private Shape shape = null;
     private Point startDrag, endDrag;
     private JLabel selectedArea;
-    private EventListenerList afterMousePressedListner = new EventListenerList();
+    private EventListenerList afterMouseReleasedListner = new EventListenerList();
     
     public ImagePanel() {
         ImagePanel self = this;
@@ -40,11 +40,6 @@ public class ImagePanel extends JPanel {
             public void mousePressed(MouseEvent event) {
                 if (isEditMode()) {
                     endDrag = startDrag = new Point(event.getX(), event.getY());
-                    for (Object actionListener : afterMousePressedListner.getListenerList()) {
-                        if (actionListener instanceof ActionListener) {
-                            ((ActionListener) actionListener).actionPerformed(new ActionEvent(self, 0, null));
-                        }
-                    }
                     repaint();
                 }
             }
@@ -55,6 +50,13 @@ public class ImagePanel extends JPanel {
                     if (endDrag != null && startDrag != null) {
                         try {
                             shape = makeRectangle(startDrag.x, startDrag.y, event.getX(), event.getY());
+                            
+                            for (Object actionListener : afterMouseReleasedListner.getListenerList()) {
+                                if (actionListener instanceof ActionListener) {
+                                    ((ActionListener) actionListener).actionPerformed(new ActionEvent(self, 0, null));
+                                }
+                            }
+
                             
                             if (event.getX() - startDrag.x != 0 && event.getY() - startDrag.y != 0) {
                                 if (event.getX() <= image.getWidth() && event.getY() < image.getHeight()) {
@@ -142,12 +144,16 @@ public class ImagePanel extends JPanel {
         return startDrag;
     }
 
+    public Point getEndDrag() {
+        return endDrag;
+    }
+
     public JLabel getSelectedArea() {
         return selectedArea;
     }
 
-    public void addAfterMousePressedListner(ActionListener actionListener) {
-        this.afterMousePressedListner.add(ActionListener.class, actionListener);
+    public void addAfterMouseReleasedListner(ActionListener actionListener) {
+        this.afterMouseReleasedListner.add(ActionListener.class, actionListener);
     }
     
     private boolean isEditMode() {
