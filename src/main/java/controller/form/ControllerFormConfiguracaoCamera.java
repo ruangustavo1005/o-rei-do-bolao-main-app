@@ -268,7 +268,7 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
                     fileName = "cancha-2.jpg";
                     break;
                 }
-                default :{
+                default: {
                     fileName = System.getProperty("os.name").equals("Windows 10") ? "cancha.JPG" : "cancha.png";
                 }
             }
