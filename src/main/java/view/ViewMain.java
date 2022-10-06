@@ -23,6 +23,10 @@ public class ViewMain extends View<Model> {
     public JMenuItem getMenuItemConfiguracoes() {
         return menuItemConfiguracoes;
     }
+
+    public JMenuItem getMenuItemJogadores() {
+        return menuItemJogadores;
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -31,6 +35,7 @@ public class ViewMain extends View<Model> {
         jMenu1 = new javax.swing.JMenu();
         menuBar = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
+        menuItemJogadores = new javax.swing.JMenuItem();
         menuOpcoes = new javax.swing.JMenu();
         menuItemConfiguracoes = new javax.swing.JMenuItem();
 
@@ -39,6 +44,10 @@ public class ViewMain extends View<Model> {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu2.setText("Cadastros");
+
+        menuItemJogadores.setText("Jogadores");
+        jMenu2.add(menuItemJogadores);
+
         menuBar.add(jMenu2);
 
         menuOpcoes.setText("Opções");
@@ -71,6 +80,7 @@ public class ViewMain extends View<Model> {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuItemConfiguracoes;
+    private javax.swing.JMenuItem menuItemJogadores;
     private javax.swing.JMenu menuOpcoes;
     // End of variables declaration//GEN-END:variables
 

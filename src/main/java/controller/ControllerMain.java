@@ -1,6 +1,7 @@
 package controller;
 
 import controller.form.ControllerFormConfiguracao;
+import controller.grid.ControllerGridJogador;
 import dao.Dao;
 import model.Configuracao;
 import model.Model;
@@ -42,11 +43,18 @@ public class ControllerMain extends Controller<Model, ViewMain, Dao> {
     
     private void addActionListenersMenus() {
         this.addActionListenersMenuItemConfiguracoes();
+        this.addActionListenersMenuItemJogadores();
     }
     
     private void addActionListenersMenuItemConfiguracoes() {
         this.getView().getMenuItemConfiguracoes().addActionListener((e) -> {
             (new ControllerFormConfiguracao(this)).showView();
+        });
+    }
+    
+    private void addActionListenersMenuItemJogadores() {
+        this.getView().getMenuItemJogadores().addActionListener((e) -> {
+            (new ControllerGridJogador(this)).showView();
         });
     }
 
