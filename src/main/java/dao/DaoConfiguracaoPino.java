@@ -39,12 +39,7 @@ public class DaoConfiguracaoPino extends Dao<ConfiguracaoPino> {
         
         query.setParameter("numeroCamera", numeroCamera);
         
-//        try {
-            return query.getResultList();
-//        }
-//        catch (NoResultException ex) {
-//            return null;
-//        }
+        return query.getResultList();
     }
     
 }

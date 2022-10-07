@@ -54,7 +54,7 @@ abstract public class Controller<TypeModel extends Model, TypeView extends View,
         return model;
     }
 
-    protected Controller setModel(TypeModel model) {
+    public Controller setModel(TypeModel model) {
         this.model = model;
         return this;
     }
