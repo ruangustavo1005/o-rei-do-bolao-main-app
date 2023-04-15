@@ -33,6 +33,9 @@ public class ConfiguracaoCamera extends Model {
     @Column(name = "margem_erro_localizacao")
     private int margemErroLocalizacao;
     
+    @Column(name = "endpoint_rtsp")
+    private String endpointRTSP;
+    
     @Override
     public int getId() {
         return this.getNumero();
@@ -74,12 +77,20 @@ public class ConfiguracaoCamera extends Model {
         return this;
     }
 
+    public String getEndpointRTSP() {
+        return endpointRTSP;
+    }
+
+    public ConfiguracaoCamera setEndpointRTSP(String endpointRTSP) {
+        this.endpointRTSP = endpointRTSP;
+        return this;
+    }
+
     public ConfiguracaoPino getPino(int numero) {
         return this.getPinos().stream()
                 .filter((pino) -> pino.getNumero() == numero)
                 .findAny().get();
     }
-    
     
     static public ArrayList<Integer> getIds() {
         ArrayList<Integer> ids = new ArrayList<>();

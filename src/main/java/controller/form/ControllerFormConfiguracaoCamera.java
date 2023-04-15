@@ -114,11 +114,13 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
         this.getView().getBotaoGravarConfiguracoesCamera().addActionListener((e) -> {
             float percentualMatchCamera = NumberUtils.parseFloat(this.getView().getTextPercentualMatchCamera().getText());
             int margemErroLocalizacao = NumberUtils.parseInt(this.getView().getTextMargemErroLocalizacaoCamera().getText());
+            String endpointRTSP = this.getView().getTextEndpointRTSP().getText();
             
             ConfiguracaoCamera configuracaoCamera = (ConfiguracaoCamera) this.getDao().get(this.getSelectedCameraNumero());
             if (configuracaoCamera != null) {
                 configuracaoCamera.setPercentualMatch(percentualMatchCamera);
                 configuracaoCamera.setMargemErroLocalizacao(margemErroLocalizacao);
+                configuracaoCamera.setEndpointRTSP(endpointRTSP);
                 if (this.getDao().update(configuracaoCamera)) {
                     this.getView().showTypedMessage("Sucesso", "Configuração alterada com sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -131,6 +133,7 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
                 configuracaoCamera.setNumero(this.getSelectedCameraNumero());
                 configuracaoCamera.setPercentualMatch(percentualMatchCamera);
                 configuracaoCamera.setMargemErroLocalizacao(margemErroLocalizacao);
+                configuracaoCamera.setEndpointRTSP(endpointRTSP);
                 if (this.getDao().add(configuracaoCamera)) {
                     this.getView().showTypedMessage("Sucesso", "Configuração inserida com sucesso!", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -283,6 +286,7 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     }
 
     private void reloadConfiguracaoCamera(ConfiguracaoCamera configuracaoCamera) {
+        this.getView().getTextEndpointRTSP().setText(configuracaoCamera.getEndpointRTSP());
         this.getView().getTextMargemErroLocalizacaoCamera().setText(NumberUtils.formataValor(configuracaoCamera.getMargemErroLocalizacao()));
         this.getView().getTextPercentualMatchCamera().setText(NumberUtils.formataValor(configuracaoCamera.getPercentualMatch()));
     }
@@ -303,6 +307,7 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
     }
 
     private void resetConfiguracaoCamera() {
+        this.getView().getTextEndpointRTSP().setText("");
         this.getView().getTextMargemErroLocalizacaoCamera().setText("");
         this.getView().getTextPercentualMatchCamera().setText("");
     }

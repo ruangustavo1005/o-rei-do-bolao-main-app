@@ -80,6 +80,8 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         jLabel22 = new javax.swing.JLabel();
         panelImagemCamera = new ImagePanel();
         botaoGravarConfiguracoesPinos = new javax.swing.JButton();
+        textEndpointRTSP = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -170,6 +172,10 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         );
 
         botaoGravarConfiguracoesPinos.setText("Gravar configurações dos pinos");
+
+        textEndpointRTSP.setToolTipText("");
+
+        jLabel23.setText("Endpoint RTSP:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -294,6 +300,10 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textEndpointRTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textPercentualMatchCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +327,9 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
                     .addComponent(textPercentualMatchCamera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textMargemErroLocalizacaoCamera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(botaoGravarConfiguracoesCamera))
+                    .addComponent(botaoGravarConfiguracoesCamera)
+                    .addComponent(textEndpointRTSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -453,6 +465,10 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
         return textMargemErroLocalizacaoCamera;
     }
 
+    public JTextField getTextEndpointRTSP() {
+        return textEndpointRTSP;
+    }
+
     public JButton getBotaoGravarConfiguracoesCamera() {
         return botaoGravarConfiguracoesCamera;
     }
@@ -529,6 +545,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -547,6 +564,7 @@ public class ViewFormConfiguracaoCamera extends ViewForm<ConfiguracaoCamera> {
     private javax.swing.JLabel labelPino8;
     private javax.swing.JLabel labelPino9;
     private ImagePanel panelImagemCamera;
+    private javax.swing.JTextField textEndpointRTSP;
     private javax.swing.JTextField textMargemErroLocalizacaoCamera;
     private javax.swing.JTextField textMargemErroLocalizacaoPino1;
     private javax.swing.JTextField textMargemErroLocalizacaoPino2;
