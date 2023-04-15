@@ -28,4 +28,8 @@ public class DaoJogador extends Dao<Jogador> {
         }
     }
     
+    public int getSuggestNumero() {
+        return (int) this.entityManager.createQuery("SELECT COALESCE(MAX(j.numero), 0) + 1 FROM Jogador j").getSingleResult();
+    }
+    
 }

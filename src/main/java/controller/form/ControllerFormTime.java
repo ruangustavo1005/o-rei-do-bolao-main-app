@@ -70,15 +70,6 @@ public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogad
             this.getView().dispose();
         });
     }
-
-    @Override
-    protected void beanDadosTela() {
-        super.beanDadosTela();
-        if (!this.getModel().isChavePreenchida()) {
-            this.getView().getModel().setNumero(this.getDao().getSuggestNumero());
-            this.getView().beanDados();
-        }
-    }
     
     @Override
     public boolean processaDados() {
