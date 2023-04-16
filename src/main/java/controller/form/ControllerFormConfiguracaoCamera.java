@@ -3,6 +3,8 @@ package controller.form;
 import controller.Controller;
 import dao.Dao;
 import dao.DaoConfiguracaoPino;
+import java.awt.BorderLayout;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,11 +19,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import model.ConfiguracaoCamera;
 import model.ConfiguracaoPino;
+import org.bytedeco.javacv.FFmpegFrameGrabber;
 import util.ImagePanel;
 import util.ImageUtils;
 import util.NumberUtils;
+import util.RTSPUtil;
+import util.TelaBloqueio;
 import view.form.ViewFormConfiguracaoCamera;
 
 /**
@@ -116,8 +123,12 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
             int margemErroLocalizacao = NumberUtils.parseInt(this.getView().getTextMargemErroLocalizacaoCamera().getText());
             String endpointRTSP = this.getView().getTextEndpointRTSP().getText();
             
+            boolean buscaImagemRTSP = false;
+            
             ConfiguracaoCamera configuracaoCamera = (ConfiguracaoCamera) this.getDao().get(this.getSelectedCameraNumero());
             if (configuracaoCamera != null) {
+                buscaImagemRTSP = !configuracaoCamera.getEndpointRTSP().equals(endpointRTSP);
+
                 configuracaoCamera.setPercentualMatch(percentualMatchCamera);
                 configuracaoCamera.setMargemErroLocalizacao(margemErroLocalizacao);
                 configuracaoCamera.setEndpointRTSP(endpointRTSP);
@@ -141,6 +152,8 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
                     this.getView().showTypedMessage("Erro", "Houve um erro ao tentar inserir a configuração. Contate o suporte", JOptionPane.ERROR_MESSAGE);
                 }
             }
+            
+            if (buscaImagemRTSP) this.reloadImagemCamera(configuracaoCamera);
         });
     }
     
@@ -242,14 +255,14 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
         int numeroCamera = this.getSelectedCameraNumero();
         
         if (numeroCamera != this.ultimaCameraSelecionadaNumero) {
-            this.reloadImagemCamera(numeroCamera);
-            
             ConfiguracaoCamera configuracaoCamera = (ConfiguracaoCamera) this.getDao().get(numeroCamera);
             if (configuracaoCamera != null) {
+                this.reloadImagemCamera(configuracaoCamera);
                 this.reloadConfiguracaoCamera(configuracaoCamera);
                 this.reloadConfiguracoesPinos(configuracaoCamera);
             }
             else {
+                this.resetImagemCamera();
                 this.resetConfiguracaoCamera();
                 this.resetConfiguracoesPinos();
             }
@@ -258,30 +271,26 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
         }
     }
 
-    private void reloadImagemCamera(int numeroCamera) {
-        try {
-            // @todo ler da câmera
-            String fileName;
-            switch (numeroCamera) {
-                case 1: {
-                    fileName = "cancha-1.jpg";
-                    break;
+    private void reloadImagemCamera(ConfiguracaoCamera configuracaoCamera) {
+        this.resetImagemCamera();
+        
+        if (!configuracaoCamera.getEndpointRTSP().isEmpty()) {
+            new Thread(() -> {
+                TelaBloqueio.bloquearTela(this.getView(), "Buscando imagem do endpoint RTSP. Aguarde...");
+                try {
+                    BufferedImage image = RTSPUtil.getImageFromEndpointRTSP(configuracaoCamera.getEndpointRTSP());
+                    BufferedImage imageResized = ImageUtils.resizeKeepProportion(image, MAX_DIMENSAO_IMAGEM_CAMERA);
+                    SwingUtilities.invokeLater(() -> {
+                        this.getView().getPanelImagemCamera().setImage(imageResized);
+                        this.getView().getPanelImagemCamera().repaint();
+                    });
                 }
-                case 2: {
-                    fileName = "cancha-2.jpg";
-                    break;
+                catch (FFmpegFrameGrabber.Exception ex) {
+                    this.resetImagemCamera();
+                    this.getView().showTypedMessage("Erro", "Houve um erro ao tentar busca a imagem da câmera via RTSP.", JOptionPane.ERROR_MESSAGE);
                 }
-                default: {
-                    fileName = System.getProperty("os.name").equals("Windows 10") ? "cancha.JPG" : "cancha.png";
-                }
-            }
-            fileName = (System.getProperty("os.name").equals("Windows 10") ? "C:/Users/ruang/Downloads/" : "/home/ruan/Documentos/tcc/") + fileName;
-            BufferedImage image = ImageUtils.resizeKeepProportion(ImageIO.read(new File(fileName)), MAX_DIMENSAO_IMAGEM_CAMERA);
-            this.getView().getPanelImagemCamera().setImage(image);
-            this.getView().repaint();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(ControllerFormConfiguracaoCamera.class.getName()).log(Level.SEVERE, null, ex);
+                TelaBloqueio.desbloquearTela(this.getView());
+            }).start();
         }
     }
 
@@ -304,6 +313,11 @@ public class ControllerFormConfiguracaoCamera extends ControllerForm<Configuraca
                 Logger.getLogger(ControllerFormConfiguracaoCamera.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+    }
+
+    private void resetImagemCamera() {
+        this.getView().getPanelImagemCamera().setImage(null);
+        this.getView().getPanelImagemCamera().repaint();
     }
 
     private void resetConfiguracaoCamera() {
