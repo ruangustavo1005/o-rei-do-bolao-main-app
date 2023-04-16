@@ -2,6 +2,7 @@ package controller;
 
 import controller.form.ControllerFormConfiguracao;
 import controller.grid.ControllerGridJogador;
+import controller.grid.ControllerGridTime;
 import dao.Dao;
 import model.Configuracao;
 import model.Model;
@@ -44,6 +45,7 @@ public class ControllerMain extends Controller<Model, ViewMain, Dao> {
     private void addActionListenersMenus() {
         this.addActionListenersMenuItemConfiguracoes();
         this.addActionListenersMenuItemJogadores();
+        this.addActionListenersMenuItemTimes();
     }
     
     private void addActionListenersMenuItemConfiguracoes() {
@@ -55,6 +57,12 @@ public class ControllerMain extends Controller<Model, ViewMain, Dao> {
     private void addActionListenersMenuItemJogadores() {
         this.getView().getMenuItemJogadores().addActionListener((e) -> {
             (new ControllerGridJogador(this)).showView();
+        });
+    }
+    
+    private void addActionListenersMenuItemTimes() {
+        this.getView().getMenuItemTimes().addActionListener((e) -> {
+            (new ControllerGridTime(this)).showView();
         });
     }
 

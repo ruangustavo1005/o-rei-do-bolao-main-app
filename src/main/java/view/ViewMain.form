@@ -23,6 +23,11 @@
                 <Property name="text" type="java.lang.String" value="Jogadores"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemTimes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Times"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuOpcoes">

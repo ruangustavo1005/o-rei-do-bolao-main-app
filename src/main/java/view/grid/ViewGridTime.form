@@ -43,10 +43,12 @@
                       <Component id="botaoExcluir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="botaoVisualizar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="botaoGerenciarJogadores" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="listaOperador" pref="117" max="32767" attributes="0"/>
+                      <Component id="listaOperador" pref="108" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="campoValorFiltro" min="-2" pref="129" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -69,6 +71,7 @@
                   <Component id="botaoAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botaoVisualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoGerenciarJogadores" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -156,5 +159,10 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="botaoGerenciarJogadores">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gerenciar Jogadores"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

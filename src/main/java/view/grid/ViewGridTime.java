@@ -5,7 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
-import model.Jogador;
+import model.TimeJogador;
 import util.CampoFiltro;
 import util.OperadorFiltro;
 
@@ -13,9 +13,9 @@ import util.OperadorFiltro;
  *
  * @author ruan
  */
-public class ViewGridJogador extends ViewGrid<Jogador> {
+public class ViewGridTime extends ViewGrid<TimeJogador> {
 
-    public ViewGridJogador() {
+    public ViewGridTime() {
         initComponents();
     }
 
@@ -35,6 +35,7 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
         botaoConsultar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
+        botaoGerenciarJogadores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,6 +53,8 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
 
         table.setModel(this.getTableModel());
         jScrollPane1.setViewportView(table);
+
+        botaoGerenciarJogadores.setText("Gerenciar Jogadores");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,9 +77,11 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
                         .addComponent(botaoExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botaoVisualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoGerenciarJogadores)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(listaOperador, 0, 117, Short.MAX_VALUE)
+                        .addComponent(listaOperador, 0, 108, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoValorFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -94,7 +99,8 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
                     .addComponent(botaoInserir)
                     .addComponent(botaoAlterar)
                     .addComponent(botaoExcluir)
-                    .addComponent(botaoVisualizar))
+                    .addComponent(botaoVisualizar)
+                    .addComponent(botaoGerenciarJogadores))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConsultar)
@@ -117,6 +123,7 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
         botoes.add(this.botaoAlterar);
         botoes.add(this.botaoExcluir);
         botoes.add(this.botaoVisualizar);
+        botoes.add(this.botaoGerenciarJogadores);
         return botoes;
     }
 
@@ -138,13 +145,13 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
     }
 
     @Override
-    protected Jogador getInstanceModel() {
-        return new Jogador();
+    protected TimeJogador getInstanceModel() {
+        return new TimeJogador();
     }
 
     @Override
     protected String getTitulo() {
-        return "Consulta de Jogadores";
+        return "Consulta de Times";
     }
 
     public JButton getBotaoAlterar() {
@@ -161,6 +168,10 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
 
     public JButton getBotaoVisualizar() {
         return botaoVisualizar;
+    }
+
+    public JButton getBotaoGerenciarJogadores() {
+        return botaoGerenciarJogadores;
     }
 
     @Override
@@ -187,6 +198,7 @@ public class ViewGridJogador extends ViewGrid<Jogador> {
     private javax.swing.JButton botaoAlterar;
     private javax.swing.JButton botaoConsultar;
     private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoGerenciarJogadores;
     private javax.swing.JButton botaoInserir;
     private javax.swing.JButton botaoVisualizar;
     private javax.swing.JFormattedTextField campoValorFiltro;

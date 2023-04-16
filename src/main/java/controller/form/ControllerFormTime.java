@@ -1,19 +1,19 @@
 package controller.form;
 
 import controller.Controller;
-import controller.grid.ControllerGridJogador;
-import dao.DaoJogador;
+import controller.grid.ControllerGridTime;
+import dao.DaoTime;
 import javax.swing.JOptionPane;
-import model.Jogador;
-import view.form.ViewFormJogador;
+import model.TimeJogador;
+import view.form.ViewFormTime;
 
 /**
  *
  * @author ruang
  */
-public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogador, DaoJogador> {
+public class ControllerFormTime extends ControllerForm<TimeJogador, ViewFormTime, DaoTime> {
 
-    public ControllerFormJogador(Controller caller, boolean onlyVisualizacao) {
+    public ControllerFormTime(Controller caller, boolean onlyVisualizacao) {
         super(caller, onlyVisualizacao);
     }
 
@@ -30,19 +30,14 @@ public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogad
     
     private void addActionListenerBotaoGravar() {
         this.getView().getBotaoGravar().addActionListener((e) -> {
-            Jogador modelFromTela = this.getView().getModelFromDadosTela();
+            TimeJogador modelFromTela = this.getView().getModelFromDadosTela();
 
-            if (modelFromTela.getNumero() == 0) {
-                this.getView().showTypedMessage("Atenção", "O número deve ser informado", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
             if (modelFromTela.getNome().isEmpty()) {
                 this.getView().showTypedMessage("Atenção", "O nome deve ser informado", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            Jogador jogadorExistente = this.getDao().getByNumero(modelFromTela.getNumero());
-            if (jogadorExistente != null && jogadorExistente.getId() != modelFromTela.getId()) {
-                this.getView().showTypedMessage("Atenção", "O número informado já está em uso pelo jogador " + jogadorExistente.getNome(), JOptionPane.WARNING_MESSAGE);
+            if (modelFromTela.getCidadeOrigem().isEmpty()) {
+                this.getView().showTypedMessage("Atenção", "a cidade de origem deve ser informado", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -57,8 +52,8 @@ public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogad
                 else {
                     this.getView().showTypedMessage("Informação", "Registro inserido com sucesso", JOptionPane.INFORMATION_MESSAGE);
                 }
-                if (this.getCaller() instanceof ControllerGridJogador) {
-                    ((ControllerGridJogador) this.getCaller()).atualizaConsulta();
+                if (this.getCaller() instanceof ControllerGridTime) {
+                    ((ControllerGridTime) this.getCaller()).atualizaConsulta();
                 }
                 this.getView().dispose();
             }
@@ -80,18 +75,18 @@ public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogad
     }
 
     @Override
-    protected Jogador getInstanceModel() {
-        return new Jogador();
+    protected TimeJogador getInstanceModel() {
+        return new TimeJogador();
     }
 
     @Override
-    protected ViewFormJogador getInstanceView() {
-        return new ViewFormJogador();
+    protected ViewFormTime getInstanceView() {
+        return new ViewFormTime();
     }
 
     @Override
-    protected DaoJogador getInstanceDao(Class classe) {
-        return new DaoJogador();
+    protected DaoTime getInstanceDao(Class classe) {
+        return new DaoTime();
     }
 
 }

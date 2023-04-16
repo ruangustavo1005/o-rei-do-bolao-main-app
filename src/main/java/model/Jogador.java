@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import util.CampoFiltro;
 
 /**
@@ -28,6 +30,10 @@ public class Jogador extends Model implements ListagemMaqueada, ListagemFiltrave
     private int numero;
     private String nome;
 
+    @ManyToOne 
+    @JoinColumn(name = "id_time")
+    private TimeJogador time;
+    
     @Override
     public int getId() {
         return id;
@@ -53,6 +59,15 @@ public class Jogador extends Model implements ListagemMaqueada, ListagemFiltrave
 
     public Jogador setNome(String nome) {
         this.nome = nome;
+        return this;
+    }
+
+    public TimeJogador getTime() {
+        return time;
+    }
+
+    public Jogador setTime(TimeJogador time) {
+        this.time = time;
         return this;
     }
 
