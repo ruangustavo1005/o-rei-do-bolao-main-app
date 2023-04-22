@@ -3,8 +3,10 @@ package controller.form;
 import controller.Controller;
 import controller.grid.ControllerGridJogador;
 import dao.DaoJogador;
+import dao.DaoTime;
 import javax.swing.JOptionPane;
 import model.Jogador;
+import model.TimeJogador;
 import view.form.ViewFormJogador;
 
 /**
@@ -73,11 +75,19 @@ public class ControllerFormJogador extends ControllerForm<Jogador, ViewFormJogad
 
     @Override
     protected void beanDadosTela() {
+        this.loadDadosComboBox();
         super.beanDadosTela();
         if (!this.getModel().isChavePreenchida()) {
             this.getView().getModel().setNumero(this.getDao().getSuggestNumero());
             this.getView().beanDados();
         }
+    }
+    
+    private void loadDadosComboBox() {
+        this.getView().getComboBoxTime().addItem(null);
+        (new DaoTime()).getOrderedByNome().forEach((time) -> {
+            this.getView().getComboBoxTime().addItem((TimeJogador) time);
+        });
     }
     
     @Override

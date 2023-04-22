@@ -3,6 +3,8 @@ package controller.grid;
 import controller.Controller;
 import controller.form.ControllerFormTime;
 import dao.Dao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.TimeJogador;
 import view.grid.ViewGridTime;
@@ -38,6 +40,7 @@ public class ControllerGridTime extends ControllerGrid<TimeJogador, ViewGridTime
         this.addActionListenerBotaoAlterar();
         this.addActionListenerBotaoExcluir();
         this.addActionListenerBotaoVisualizar();
+        this.addActionListenerBotaoGerenciarJogadores();
     }
 
     private void addActionListenerBotaoInserir() {
@@ -85,6 +88,17 @@ public class ControllerGridTime extends ControllerGrid<TimeJogador, ViewGridTime
     private void addActionListenerBotaoVisualizar() {
         this.getView().getBotaoVisualizar().addActionListener((e) -> {
             (new ControllerFormTime(this, true)).setModel(this.getSelectedModel()).showView();
+        });
+    }
+    
+    private void addActionListenerBotaoGerenciarJogadores() {
+        this.getView().getBotaoGerenciarJogadores().addActionListener((e) -> {
+            try {
+                (new ControllerGridTimeJogador(this, this.getSelectedModel())).showView();
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerGridTime.class.getName()).log(Level.SEVERE, null, ex);
+                this.getView().showTypedMessage("Erro", ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
     

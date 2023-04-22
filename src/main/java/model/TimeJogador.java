@@ -70,6 +70,11 @@ public class TimeJogador extends Model implements ListagemMaqueada, ListagemFilt
     public int getJogadoresCount() {
         return this.getJogadores() != null ? this.getJogadores().size() : 0;
     }
+
+    @Override
+    public String toString() {
+        return this.getNome() + " (" + this.getCidadeOrigem() + ")";
+    }
     
     @Override
     public Map<String, String> getTitulosColunas() {
