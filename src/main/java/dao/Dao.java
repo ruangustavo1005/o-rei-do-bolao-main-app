@@ -26,10 +26,14 @@ public class Dao<Type extends Model> {
         this.entityManager = Connection.getInstance().getEntityManager();
     }
     
+    protected String getBaseSelect(){
+        return "from " + this.classe.getName() + " tabela where 1 = 1";
+    }
+    
     public ArrayList<Type> get() {
         ArrayList<Type> lista = null;
         try {
-            lista = (ArrayList<Type>) this.entityManager.createQuery("from " + this.classe.getName()).getResultList();
+            lista = (ArrayList<Type>) this.entityManager.createQuery(this.getBaseSelect()).getResultList();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -57,7 +61,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_MENOR_QUE : 
             case OperadorFiltro.OPERADOR_MENOR_IGUAL : {
                 query = this.entityManager.createQuery(
-                    String.format("from %s tabela where tabela.%s %s :param1", this.classe.getName(), campo, operador)
+                    String.format(this.getBaseSelect() + " and tabela.%s %s :param1", campo, operador)
                 );
 
                 this.addParamQuery(query, campoFiltro, "param1", valor);
@@ -68,7 +72,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_CONTEM : 
             case OperadorFiltro.OPERADOR_NAO_CONTEM : {
                 query = this.entityManager.createQuery(
-                    String.format("from %s tabela where lower(tabela.%s) %s :param1", this.classe.getName(), campo, operador)
+                    String.format(this.getBaseSelect() + " and lower(tabela.%s) %s :param1", campo, operador)
                 );
                 
                 this.addParamQuery(query, campoFiltro, "param1", "%" + valor.toLowerCase() + "%");
@@ -79,7 +83,7 @@ public class Dao<Type extends Model> {
             case OperadorFiltro.OPERADOR_ENTRE : 
             case OperadorFiltro.OPERADOR_NAO_ENTRE : {
                 query = this.entityManager.createQuery(
-                    String.format("from %s tabela where tabela.%s %s :param1 and :param2", this.classe.getName(), campo, operador)
+                    String.format(this.getBaseSelect() + " and tabela.%s %s :param1 and :param2", campo, operador)
                 );
                 
                 this.addParamQuery(query, campoFiltro, "param1", valor);
@@ -100,19 +104,21 @@ public class Dao<Type extends Model> {
         if (campoFiltro.isTipoString()) {
             query.setParameter(paramName, paramValue);
         }
-        else if (campoFiltro.isTipoInteger()) {
+        else if (campoFiltro.isTipoDate()) {
+            query.setParameter(paramName, DateUtils.stringToDate(paramValue));
+        }
+        else {
             try {
-                query.setParameter(paramName, Integer.valueOf(paramValue));
+                if (campoFiltro.isTipoInteger()) {
+                    query.setParameter(paramName, Integer.valueOf(paramValue));
+                }
+                else if (campoFiltro.isTipoFloat()) {
+                    query.setParameter(paramName, Float.valueOf(paramValue));
+                }
             }
             catch (NumberFormatException exception) {
                 throw new ValorInvalidoCampo();
             }
-        }
-        else if (campoFiltro.isTipoFloat()) {
-            query.setParameter(paramName, Float.valueOf(paramValue));
-        }
-        else if (campoFiltro.isTipoDate()) {
-            query.setParameter(paramName, DateUtils.stringToDate(paramValue));
         }
     }
     

@@ -2,6 +2,7 @@ package controller.grid;
 
 import controller.Controller;
 import controller.form.ControllerFormJogador;
+import controller.form.ControllerFormTimeJogador;
 import dao.Dao;
 import dao.DaoTimeJogador;
 import java.awt.event.WindowAdapter;
@@ -25,6 +26,8 @@ public class ControllerGridTimeJogador extends ControllerGrid<Jogador, ViewGridT
             throw new Exception("É necessário informar um time para acessar a consulta de jogadores do time");
         }
         this.time = time;
+        this.view = this.getInstanceView();
+        this.dao = this.getInstanceDao(null);
         this.getView().setTitle(this.getView().getTitle() + " do time " + time.getNome());
     }
 
@@ -40,9 +43,9 @@ public class ControllerGridTimeJogador extends ControllerGrid<Jogador, ViewGridT
 
     @Override
     protected DaoTimeJogador getInstanceDao(Class classe) {
-        return new DaoTimeJogador(time);
+        return new DaoTimeJogador(this.time);
     }
-    
+
     @Override
     public void showView() {
         this.addActionListeners();
@@ -57,19 +60,20 @@ public class ControllerGridTimeJogador extends ControllerGrid<Jogador, ViewGridT
 
     private void addActionListenerBotaoRelacionarJogador() {
         this.getView().getBotaoRelacionarJogador().addActionListener((e) -> {
-            (new ControllerFormJogador(this, false)).showView();
+            (new ControllerFormTimeJogador(this, this.time)).showView();
         });
     }
 
     private void addActionListenerBotaoRemoverJogador() {
         this.getView().getBotaoRemoverJogador().addActionListener((e) -> {
-            int escolha = this.getView().showDialog("Atenção", "Deseja excluir o(s) registro(s) selecionado(s)?", JOptionPane.YES_NO_OPTION);
+            int escolha = this.getView().showDialog("Atenção", "Deseja desvincular o(s) jogador(es) selecionado(s)?", JOptionPane.YES_NO_OPTION);
             if (escolha == JOptionPane.YES_OPTION) {
                 boolean sucesso = true;
                 Dao.disableTransactions();
                 this.getDao().getEntityManager().getTransaction().begin();
                 for (Jogador jogador : this.getSelectedModels()) {
-                    sucesso = this.getDao().remove(jogador);
+                    jogador.setTime(null);
+                    sucesso = this.getDao().update(jogador);
                     if (!sucesso) {
                         break;
                     }
@@ -77,13 +81,13 @@ public class ControllerGridTimeJogador extends ControllerGrid<Jogador, ViewGridT
 
                 if (sucesso) {
                     this.getDao().getEntityManager().getTransaction().commit();
-                    this.getView().showTypedMessage("Informação", "Registros excluídos com sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    this.getView().showTypedMessage("Informação", "Registro(s) desvinculado(s) com sucesso", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else {
                     if (this.getDao().getEntityManager().getTransaction().isActive()) {
                         this.getDao().getEntityManager().getTransaction().rollback();
                     }
-                    this.getView().showTypedMessage("Erro", "Houve um erro ao tentar excluir os registros", JOptionPane.ERROR_MESSAGE);
+                    this.getView().showTypedMessage("Erro", "Houve um erro ao tentar excluir o(s) registro(s)", JOptionPane.ERROR_MESSAGE);
                 }
                 Dao.enableTransactions();
                 this.atualizaConsulta();
@@ -96,11 +100,10 @@ public class ControllerGridTimeJogador extends ControllerGrid<Jogador, ViewGridT
          * @todo testar
          */
         if (this.getCaller() instanceof ControllerGrid) {
-            ControllerGrid caller = (ControllerGrid) this.getCaller();
             this.getView().addWindowListener(new WindowAdapter() {
                 @Override
                 public void windowClosing(WindowEvent e) {
-                    caller.atualizaConsulta();
+                    ((ControllerGrid) getCaller()).atualizaConsulta();
                     super.windowClosing(e);
                 }
             });

@@ -55,12 +55,12 @@ public abstract class View<TypeModel extends Model> extends JFrame {
 
     /**
      * Dispara uma mensagem de pergunta
-     * @param mensagem          Mensagem
      * @param titulo            Título
+     * @param mensagem          Mensagem
      * @param opcoesDisponiveis Opções na tela: <code>JOptionPane.YES_NO_OPTION</code>, <code>JOptionPane.YES_NO_CANCEL_OPTION</code> ou <code>JOptionPane.OK_CANCEL_OPTION</code>
      * @return int <code>JOptionPane.YES_OPTION</code>, <code>JOptionPane.NO_OPTION</code>, <code>JOptionPane.CANCEL_OPTION</code>, <code>JOptionPane.OK_OPTION</code>, <code>JOptionPane.CLOSED_OPTION</code>
      */
-    public int showDialog(String mensagem, String titulo, int opcoesDisponiveis) {
+    public int showDialog(String titulo, String mensagem, int opcoesDisponiveis) {
         return JOptionPane.showConfirmDialog(this, mensagem, titulo, opcoesDisponiveis);
     }
     

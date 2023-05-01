@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Jogador extends Model implements ListagemMaqueada, ListagemFiltrave
     private int numero;
     private String nome;
 
-    @ManyToOne 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_time")
     private TimeJogador time;
     
@@ -92,5 +93,9 @@ public class Jogador extends Model implements ListagemMaqueada, ListagemFiltrave
         campos.add("id");
         return campos;
     }
-    
+
+    @Override
+    public String toString() {
+        return this.getNome() + " (" + this.getNumero() + ")";
+    }
 }
